@@ -6,4 +6,4 @@ src: './images/obi_wan.jpeg'},{title: 'Qui-Gon Jinn',
 description: 'Obi Wans teacher',
 src: './images/q-gon.jpg'},{title: 'Luke Skywalker',
 description: 'Anakins son',
-src: './images/images/luke_skywalker.jpg'}];
+src: './images/luke_skywalker.jpg'}];

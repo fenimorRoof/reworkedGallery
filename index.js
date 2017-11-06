@@ -1,32 +1,58 @@
 $(document).ready(function() {
 
   let slideNumber = 0;
-  function turnThePage(number) {
-    return window.images[number].src;
-  };
+  let arreyLength = window.images.length;
 
+  //Rendering
   function renderImage() {
-    let slide = window.images[slideNumber];
-    $("body").append(`<img src='${turnThePage(slideNumber)}'>`);
-
+    $("#image").html('');
+    let srcImage = window.images[slideNumber];
+    $("#image").append(`<img src="${srcImage.src}">`);
   };
 
   function renderPagination() {
-    $("body").append("<button id='Prev' type='button'><</button>");
-    $("body").append("<button id='Next' type='button'>></button>");
-    $("#Next").click(function () {
-      slideNumber += 1;
-      console.log(slideNumber);
-      $("img").remove();
-      renderImage();
-    })
+    $("#pagination").append("<button id='prev' type='button'>◀</button>");
+    $("#pagination").append("<button id='next' type='button'>▶</button>");
+    $("#prev").on("click", prevImage);
+    $("#next").on("click", nextImage);
   };
 
 
+  //Actions
+
+  function changeSlide() {
+    renderImage();
+    updatePagination();
+  };
+
+  function prevImage() {
+    slideNumber -= 1;
+    changeSlide();
+  };
+
+  function nextImage() {
+    slideNumber += 1;
+    changeSlide();
+  };
+
+  function updatePagination() {
+    $("#pagination button[disabled]").prop('disabled', false);
+
+    if ((+slideNumber - 1) < 0) {
+      $("#pagination #prev").prop('disabled', true);
+    };
+
+    if ((+slideNumber + 1) == arreyLength) {
+      $("#pagination #next").prop('disabled', true);
+    };
+  };
+
+  //Initialization
   function init() {
     renderImage();
     renderPagination();
+    updatePagination();
   };
+
   init();
 });
- e3
