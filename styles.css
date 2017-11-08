@@ -1,9 +1,35 @@
 img {
+  margin: 0 0 0 25px;
   position: absolute;
   width: 600px;
   height: 350px;
 }
 
-button {
-  margin-top: 50%;
+#next {
+  right: 13%;
 }
+
+#slideButtons {
+  top: 60px;
+  left: 250px;
+  position: absolute;
+}
+
+#slideButtons button {
+  min-width: 30px;
+  min-height: 30px;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+#prev, #next {
+  height: 350px;
+  position : absolute;
+}
+
+/*p {
+  vertical-align: middle;
+}*/
