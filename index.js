@@ -5,14 +5,21 @@ $(document).ready(function() {
 
   //Rendering
   function renderImage() {
-    $('#image').html(''); //Delete previous image
+    //$('#image').html(''); //Delete previous image
 
     let srcImage = window.images[slideNumber-1];
-    $('#image').append(`<img src='${srcImage.src}'>`);
+    //TODO ХЕндлеры офф
+    let removingImageID = dateGenerator();
+    $('#image').append(`<img src='${srcImage.src}' date-id="${removingImageID}" style ="display: none">`);
+    $('img').fadeToggle('slow',function() {
+      $(`img [data-id=${removingImageID}]`).remove();  //TODO Вынести в отдельную функцию с параметром принимающим removingImageID
+      console.log(+removingImageID);
+      //TODO ХЕндлеры он
+    });
   }
 
   function renderPagination() {
-    $('#pagination').append('<button id="prev" type="button">◀</button>');
+    $('#pagination').append('<button id="prev" type="button" data->◀</button>');
     $('#pagination').append('<button id="next" type="button">▶</button>');
     $('#pagination').append('<div id="slideButtons"></div>');
 
@@ -63,13 +70,18 @@ $(document).ready(function() {
     }
   }
 
-
+  function dateGenerator () {
+   let uniID = new Date();
+   uniID = (Math.random()) * uniID.getMilliseconds();
+   return  +uniID;
+ }
 
   //Initialization
   function init() {
     renderImage();
     renderPagination();
     updatePagination();
+
   }
 
   init();
