@@ -1,41 +1,36 @@
 $(document).ready(function() {
 
   let DATA_ARREY_LENGTH = window.images.length;
-  let slideNumber = 1;
 
-  let usedImageID = 0;
+  let slideNumber = 1;
+  let usedImageIdentifier = 0;
 
   //Rendering
   function renderImage() {
 
-    let srcImage = window.images[slideNumber-1];
-    //TODO ХЕндлеры офф
+    let image = window.images[slideNumber-1];
+    let imageIdentifier = randomIdentifier();
 
-    let idImage = dateGenerator();
-
-    $('#image').append(`<img src='${srcImage.src}' id="${idImage}" style ="display: none">`);
-    $(`#${idImage}`).fadeToggle('slow',function() {
-      $(`#${usedImageID}`).remove('img');
-      usedImageID = idImage;
-      console.log(idImage);
-      //TODO ХЕндлеры он
+    $('#image').append(`<img src='${image.src}' id="${imageIdentifier}" style ="display: none">`);
+    $(`#${imageIdentifier}`).fadeToggle('fast',function() {
+      //deleting image
+      $(`#${usedImageIdentifier}`).remove('img');
+      usedImageIdentifier = imageIdentifier;
     });
   }
 
   function renderPagination() {
-    $('#pagination').append('<button id="prev" type="button" data->◀</button>');
+    $('#pagination').append('<button id="prev" type="button">◀</button>');
     $('#pagination').append('<button id="next" type="button">▶</button>');
-    $('#pagination').append('<div id="slideButtons"></div>');
 
     for(let i = 1; i <= DATA_ARREY_LENGTH; i+= 1) {
 
-      //"i+1" for butons names and just i for slideNumber variable
+      $('#pagination').append(`<button type="button" value="slide-${i}">${i}</button>`);
 
-      $('#slideButtons').append(`<button type="button" value="slide-${i}">${i}</button>`);
-      $(`#slideButtons button[value="slide-${i}"]`).click(
+      $(`button[value="slide-${i}"]`).click(
         (function(index){
-          return function() { changeSlide(index); } }
-        )(i)
+          return function() { changeSlide(index); }
+        })(i)
       );
     }
 
@@ -56,12 +51,7 @@ $(document).ready(function() {
   function changeSlide(slide) {
     slideNumber = slide;
     renderImage();
-    deleteImage();
     updatePagination();
-  }
-
-  function deleteImage() {
-    $(this).remove();
   }
 
   function updatePagination() {
@@ -79,10 +69,9 @@ $(document).ready(function() {
     }
   }
 
-  function dateGenerator () {
+  function randomIdentifier () {
    let uniID = new Date();
-   uniID = uniID.getMilliseconds();
-   return  +uniID;
+   return +(uniID.getMilliseconds());
  }
 
   //Initialization
@@ -90,7 +79,6 @@ $(document).ready(function() {
     renderImage();
     renderPagination();
     updatePagination();
-
   }
 
   init();

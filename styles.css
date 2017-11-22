@@ -3,31 +3,28 @@ img {
   position: absolute;
   width: 600px;
   height: 350px;
+  border: 1px solid grey;
 }
 
-#next {
-  left: 630px;
+h3 {
+  color: grey;
 }
 
-#slideButtons {
-  top: 60px;
-  left: 250px;
+#pagination {
+  top: 370px;
+  left: 210px;
   position: absolute;
 }
 
-#slideButtons button {
+
+#pagination button {
   min-width: 30px;
   min-height: 30px;
   padding: 5px;
   background: #fff;
   border: 1px solid #ccc;
-  margin: 0 5px;
+  margin: 0 7px;
   border-radius: 2px;
-}
-
-#prev, #next {
-  height: 350px;
-  position : absolute;
 }
 
 /*p {
