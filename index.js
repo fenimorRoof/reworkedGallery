@@ -1,19 +1,23 @@
 $(document).ready(function() {
 
+  let DATA_ARREY_LENGTH = window.images.length;
   let slideNumber = 1;
-  let arreyLength = window.images.length;
+
+  let usedImageID = 0;
 
   //Rendering
   function renderImage() {
-    //$('#image').html(''); //Delete previous image
 
     let srcImage = window.images[slideNumber-1];
     //TODO ХЕндлеры офф
-    let removingImageID = dateGenerator();
-    $('#image').append(`<img src='${srcImage.src}' date-id="${removingImageID}" style ="display: none">`);
-    $('img').fadeToggle('slow',function() {
-      $(`img [data-id=${removingImageID}]`).remove();  //TODO Вынести в отдельную функцию с параметром принимающим removingImageID
-      console.log(+removingImageID);
+
+    let idImage = dateGenerator();
+
+    $('#image').append(`<img src='${srcImage.src}' id="${idImage}" style ="display: none">`);
+    $(`#${idImage}`).fadeToggle('slow',function() {
+      $(`#${usedImageID}`).remove('img');
+      usedImageID = idImage;
+      console.log(idImage);
       //TODO ХЕндлеры он
     });
   }
@@ -23,7 +27,7 @@ $(document).ready(function() {
     $('#pagination').append('<button id="next" type="button">▶</button>');
     $('#pagination').append('<div id="slideButtons"></div>');
 
-    for(let i = 1; i <= arreyLength; i+= 1) {
+    for(let i = 1; i <= DATA_ARREY_LENGTH; i+= 1) {
 
       //"i+1" for butons names and just i for slideNumber variable
 
@@ -52,7 +56,12 @@ $(document).ready(function() {
   function changeSlide(slide) {
     slideNumber = slide;
     renderImage();
+    deleteImage();
     updatePagination();
+  }
+
+  function deleteImage() {
+    $(this).remove();
   }
 
   function updatePagination() {
@@ -65,14 +74,14 @@ $(document).ready(function() {
       $('#pagination #prev').prop('disabled', true);
     };
 
-    if (+slideNumber == arreyLength) {
+    if (+slideNumber == DATA_ARREY_LENGTH) {
       $('#pagination #next').prop('disabled', true);
     }
   }
 
   function dateGenerator () {
    let uniID = new Date();
-   uniID = (Math.random()) * uniID.getMilliseconds();
+   uniID = uniID.getMilliseconds();
    return  +uniID;
  }
 
