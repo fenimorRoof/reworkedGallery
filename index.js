@@ -13,9 +13,7 @@ $(document).ready(function() {
 
     $('#image').append(`<img src='${image.src}' id="${imageIdentifier}" style ="display: none">`);
     $(`#${imageIdentifier}`).fadeToggle('fast',function() {
-      //deleting image
-      $(`#${usedImageIdentifier}`).remove('img');
-      usedImageIdentifier = imageIdentifier;
+      removingImage (imageIdentifier);
     });
   }
 
@@ -67,6 +65,11 @@ $(document).ready(function() {
     if (+slideNumber == DATA_ARREY_LENGTH) {
       $('#pagination #next').prop('disabled', true);
     }
+  }
+
+  function removingImage(id) {
+    $(`#${usedImageIdentifier}`).remove('img');
+    usedImageIdentifier = id;
   }
 
   function randomIdentifier () {
